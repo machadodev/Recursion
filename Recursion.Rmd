@@ -1,0 +1,1566 @@
+---
+title: "Recursão"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+####*Leonardo Machado*
+####*Graduação em Ciência da Computação*
+####*Universidade Federal Fluminense*
+####*Niteroi, 2017*
+
+<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+});
+</script>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br/>
+
+
+> **A primeira coisa que preciso perguntar é: Você já sabe recursão?**<br/>
+  **Se sim, boa sorte na vida e bons estudos.**<br/>
+  **Se não, leia esse trabalho e aprenda!**
+
+##O que é?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma técnica de programação que envolve o uso de um *procedure*, subrotina, função ou algoritmo que é definido em razão de si mesmo e se chama uma ou mais vezes até uma condição de parada ser encontrada, então todas as chamadas anteriores são processadas da última até a primeira.
+
+##Onde usaremos?
+* **Operações com strings:** Desde simples operações como comparar duas *strings* até operações mais elaboradas como verificar se a palavra é um [Palíndromo](http://www.soportugues.com.br/secoes/palindromos/), por exemplo.
+* **Estruturas de dados:** Listas encadeadas, árvores, grafos. Em operações como inverter uma lista simplesmente encadeada, percorrer uma árvore em ordem, pós ordem ou pré ordem, achar caminhos em grafos, etc.
+* **Problemas combinacionais:** Análises combinatórias, permutações, etc.
+* **Operações matemáticas:** Praticamente, se não todas, operações matemáticas podem ser resolvidas de forma recursiva. Devido a isso as aplicações mais comuns da recursão são feitas na ciência da computação e na matemática.
+* **Encontrar caminhos ou soluções:** Encontrar caminho em um labirinto, o menor caminho entre dois pontos, achar a solução para algum *puzzle* ou encontrar a solução para um jogo de xadrez. 
+
+
+##Sobre o trabalho:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teremos vários exemplos ao decorrer do trabalho de várias aplicações recursivas abordando os tópicos supracitados, porém serão um punhado comparado a quantidade de coisas que são possíveis fazer de forma recursiva. Farei o possível para escrever todos os algoritmos em **português**, pois acredito que quando aprendemos na nossa própria língua a absorção é bem maior. O objetivo desse trabalho é introduzir a ideia recursiva e a importância do seu uso.
+Tudo que pode-se fazer de forma recursiva é possível fazer de forma iterativa (*for*, *while*, *do while*), então por que usar recursão? Até o fim desse trabalho tentarei convencê-lo dos poderes e da importância da recursão.
+
+
+##Para quem é esse material?
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Esse material não é indicado para pessoas que nunca programaram.** Não ensinarei ninguém a programar, ensinarei a pensar de forma recursiva e a reconhecer problemas grandes que podem ser partidos em subproblemas para poderem ser resolvidos da forma "dividir para conquistar".
+**Se você já conhece os conceitos básicos da programação, então esse material é para você.**
+
+
+Este material contará com códigos em 5 linguagens de programação diferentes:
+
+1. **Python**
+
+2. **Java**
+
+3. **C**
+
+4. **C++**
+
+5. **C#**
+
+
+
+###Como escrever uma função recursiva:
+Antes de sairmos escrevendo funções recursivas, precisamos de um pouco de teoria e regras. Um passo a passo deve ser seguido, pois assim como o uso da recursão traz diversos benefícios, se usada de forma incorreta, pode acarretar em um estouro de pilha ou *loop* infinito.
+
+####As seguintes regras precisam ser seguidas:
+* **Precisa ter um caso base:** O caso base de uma função é a primeira coisa que você escreverá dentro de uma função recursiva, pois é a sua condição de parada. Em que momento sua função deve parar de chamar a si mesma? Assim que a condição de parada for satisfeita.
+
+* **Passo em direção ao fim:** Após cada chamada recursiva, sua função **deve** dar um passo em direção ao fim da recursão. Isso é fundamental para o seu algoritmo não entrar em *loop* infinito.
+
+---
+
+##Primeiro código recursivo - Calcular Fatorial
+Sem mais delongas, podemos partir para o nosso primeiro código recursivo. Vamos começar com o exemplo mais clichê e básico sobre recursão, mas é o que dá uma ideia mais clara de como ela funciona. Vamos fazer uma função recursiva para calcular o [fatorial](http://www.infoescola.com/matematica/fatorial/) de um número.
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+  # Função Recursiva
+def fatorial(n): 
+  # Caso base
+  if n <= 1:
+    return 1
+  else:
+  # Passo em direção ao fim do problema
+    return n * fatorial(n - 1) 
+
+
+n = int(input("Deseja calcular o fatorial de qual numero? : "))
+fat = fatorial(n)
+
+print("Fatorial de", n, ":", fat)
+```
+
+### Java
+
+```java
+
+// Entrada padrão
+import java.util.Scanner;
+
+public class Fatorial
+{
+  // Função recursiva
+  static int fatorial(int n)
+  {
+    // Caso base
+    if(n <= 1)
+      return 1;
+    else
+    // Passo em direção ao fim do problema
+      return n * fatorial(n - 1);
+  }
+
+  public static void main(String[] arg)
+  {
+    Scanner in = new Scanner(System.in);
+
+    System.out.print("Deseja calcular o fatorial de qual numero? : ");
+    int n = in.nextInt();
+
+    System.out.println("Fatorial de " + n + ": " + fatorial(n));
+  }
+}
+```
+
+### C
+
+```c
+/* Entrada e saída padrão */
+#include <stdio.h> 
+
+/* Função recursiva */
+int fatorial(int n)
+{
+  /* Caso base */
+  if(n <= 1)
+    return 1;
+  else
+  /* Passo em direção ao fim do problema */
+    return n * fatorial(n - 1);
+}
+
+int main(int argc, char* argv[])
+{
+  int n = 0;
+
+  printf("Deseja calcular o fatorial de qual numero? : ");
+  scanf("%d", &n);
+
+  printf("Fatorial de %d: %d\n", n, fatorial(n));
+
+  return 0;
+}
+```
+
+### C++
+
+```cplusplus
+// Entrada e saída padrão
+#include <iostream> 
+
+using namespace std;
+
+// Função recursiva
+int fatorial(int n)
+{
+  // Caso base
+  if(n <= 1)
+    return 1;
+  else 
+  // Passo em direção ao fim do problema
+    return n * fatorial(n - 1);
+}
+
+int main(int argc, char* argv[])
+{
+  int n = 0;
+
+  cout << "Deseja calcular o fatorial de qual numero? : ";
+  cin >> n;
+
+  cout << "Fatorial de " << n << ": " << fatorial(n) << endl;
+
+  return 0;
+}
+```
+
+### CSharp
+
+```csharp
+using System;
+
+public class Fatorial
+{
+  // Função recursiva
+  static int fatorial(int n)
+  {
+    // Caso base
+    if(n <= 1)
+      return 1;
+    else
+    // Passo em direção ao fim do problema 
+      return n * fatorial(n - 1);
+  }
+
+  public static void Main(string[] args)
+  {
+    Console.Write("Deseja calcular o fatorial de qual numero? : ");
+    int n = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine("Fatorial de {0}: {1}", n, fatorial(n));
+  }
+}
+```
+
+##
+
+Vamos calcular o fatorial de 4. A primeira chamada para a função fatorial(int n) é o que dá o ponta-pé inicial a nossa recursão. Faremos um passo a passo de como a nossa função recursiva funciona:
+
+Na primeira chamada *n* vale 4.
+Iremos compará-lo com o caso base, se *n* for menor ou igual a 1, retornar.
+Como *n* não é, multiplicamos *n* (que vale 4) pelo resultado do fatorial(*n* - 1), ou seja, multiplicamos 4 * fatorial(3).
+Por definição, fatorial de um número é 4! = 4 \* 3 \* 2 \* 1. Quando atingirmos o caso base, teremos dividido o nosso problema no mínimo de subproblemas possíveis, o que indica que podemos voltar resolvendo o problema.
+
+    fatorial(4)
+    
+      4 * fatorial(4 - 1)
+      
+         3 * fatorial(3 - 1)
+         
+            2 * fatorial(2 - 1)
+            
+                return 1
+            
+            return 2 * 1 = 2
+         
+       return 3 * 2 = 6
+    
+    return 4 * 6 = 24   
+  
+
+**Resultado: 24**
+
+
+
+É fundamental que você tente reescrever o algoritmo, calcular o fatorial de outros números e analisar como o código funciona. Independente da linguagem que você programa, se entender como esse algoritmo funciona estará apto a prosseguir.
+
+---
+
+###Vamos avançar e ver mais códigos recursivos
+<br/>
+
+####Contar digitos
+Pense em um algoritmo para contar quantos digitos tem um número inteiro. Você provavelmente sabe alguma possível solução para esse problema.
+Uma das possíveis implementações iterativas seria:
+
+```
+algoritmo "Conta_Digitos"
+
+var
+total: inteiro
+n: inteiro
+
+inicio
+   escreva("Digite um numero: ")
+   leia(n)
+   
+   enquanto n <> 0 faca
+      n <- n / 10
+      total <- total + 1
+   fimenquanto
+   
+   escreva("Total de digitos: ", total)
+
+
+fimalgoritmo
+
+```
+
+**Vamos analisar o algoritmo:** nosso objetivo é contar quantos digitos tem um número. Ou seja, nosso passo é em direção ao digito mais a esquerda. Quando fazemos uma divisão inteira de um número por 10, retiramos o último digito à direita.
+
+Exemplo: 123 / 10 = 12 ( O resultado exato da divisão seria 12.3, mas estamos fazendo uma [**divisão inteira**](http://python-reference.readthedocs.io/en/latest/docs/operators/floor_division.html) de um número.)
+
+Com essas informações já temos o nosso passo em direção ao fim (dividir o número por 10 na chamada recursiva).
+
+Sabemos que o algoritmo deve parar quando não houver mais digitos para dividir ( caso base ).
+
+Tendo o passo em direção ao fim e o caso base, podemos finalmente construir nosso algoritmo para contar digitos de forma recursiva.
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+# Função Recursiva
+def conta_digitos(n):
+  # Caso base
+  if n <= 0:
+    return 0
+  else:
+  # Passo em direção ao fim do problema
+    return 1 + conta_digitos(n // 10)
+
+n = int(input("Digite um numero: "))
+print("O numero", n, "tem", conta_digitos(n), "digitos")
+```
+
+### Java
+
+```java
+// Entrada padrão
+import java.util.Scanner;
+
+public class Digitos
+{
+  // Função recursiva
+  static int conta_digitos(int n)
+  {
+    // Caso base
+    if(n <= 0)
+      return 0;
+    else
+    // Passo em direção ao fim do problema
+      return 1 + conta_digitos(n / 10);
+  }
+
+  public static void main(String[] arg)
+  {
+    Scanner in = new Scanner(System.in);
+
+    System.out.print("Digite um numero: ");
+    int n = in.nextInt();
+
+    System.out.println("O numero " + n + " tem " + conta_digitos(n) + " digitos");
+  }
+}
+```
+
+### C
+
+```c
+/* Entrada e saída padrão */
+#include <stdio.h>
+
+/* Função recursiva */
+int conta_digitos(int n)
+{
+  /* Caso base */
+  if(n <= 0)
+    return 0;
+  else
+  /* Passo em direção ao fim do problema */
+    return 1 + conta_digitos(n / 10);
+}
+
+int main(int argc, char* argv[])
+{
+  int n = 0;
+
+  printf("Digite um numero: ");
+  scanf("%d", &n);
+
+  printf("O numero %d tem %d digitos\n", n, conta_digitos(n));
+
+  return 0;
+}
+```
+
+### C++
+
+```cplusplus
+// Entrada e saída padrão
+#include <iostream>
+
+using namespace std;
+
+// Função recursiva
+int conta_digitos(int n)
+{
+  // Caso base
+  if(n <= 0)
+    return 0;
+  else
+  // Passo em direção ao fim do problema
+    return 1 + conta_digitos(n / 10);
+}
+
+int main(int argc, char* argv[])
+{
+  int n = 0;
+
+  cout << "Digite um numero: ";
+  cin >> n;
+
+  cout << "O numero " << n << " tem " << conta_digitos(n) << " digitos" << endl;
+
+  return 0;
+}
+```
+
+### CSharp
+
+```csharp
+using System;
+
+public class Digitos
+{
+  // Função recursiva
+  static int conta_digitos(int n)
+  {
+    // Caso base
+    if(n <= 0)
+      return 0;
+    else
+    // Passo em direção ao fim do problema
+      return 1 + conta_digitos(n / 10);
+  }
+
+  public static void Main(string[] args)
+  {
+    Console.Write("Digite um numero: ");
+    int n = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine("O numero {0} tem {1} digitos", n, conta_digitos(n));
+  }
+}
+```
+
+##
+
+Se a nossa entrada fosse o valor 123, o algoritmo iria compará-la com o caso base.
+
+123 é menor que 0? Não.
+Então conte um dígito e faça a chamada recursiva para *n* dividido por 10.
+Esse passo será repetido até o caso base ser atingido.
+
+Ida:
+
+      n = 123
+      
+        n' = 123 // 10 = 12
+      
+          n'' = 12 // 10 = 1
+      
+            n''' = 1 // 10 = 0  <- Caso base atingido.
+
+Volta:
+
+            n''' = 0  <- Após atingir o caso base, retorne 0
+      
+          n'' = 1   <- Some 1 ao resultado da chamada recursiva, ou seja, 1 + 0 = 1
+      
+        n' = 12 <- Some 1 ao resultado da chamada recursiva, ou seja, 1 + 1 = 2
+      
+      n = 123 <- Some 1 ao resultado da chamada recursiva, ou seja, 2 + 1 = 3
+
+
+Retorne para o programa principal o resultado encontrado.
+
+**Resultado = 3**
+
+
+###Colocando em prática
+Faça um algoritmo recursivo que some *n* até 1 e exiba o resultado na tela.
+
+**Exemplo:**
+
+Entrada: 5
+
+Algoritmo: 5 + 4 + 3 + 2 + 1
+
+Saída: 15
+
+O algoritmo iterativo para esse problema seria:
+
+## {.tabset .tabset-fade}
+
+### Pseudo Código
+
+```python
+Algoritmo "somar_numeros"
+Var
+total : inteiro
+n : inteiro
+i : inteiro
+
+Inicio
+ escreva("Digite o valor de n: ")
+ leia(n)
+ 
+ para i de 1 ate n faca
+      total <- total + i
+ fimpara
+
+ escreva("Total: ", total)
+
+Fimalgoritmo
+```
+
+### Resposta
+
+```python
+def soma(n):
+  if(n <= 0)
+    return 0
+  else:
+    return n + soma(n - 1)
+```
+
+##
+
+---
+
+###Palíndromo
+
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+# Função Recursiva
+def palindromo(str, comeco, fim):
+    # Primeiro caso base
+    if comeco == fim:
+        return True
+    # Segundo caso base
+    else if str[comeco] != str[fim]:
+        return False
+    else:
+    # Passo em direção ao fim do problema
+      return palindromo(str, comeco + 1, fim - 1)
+
+
+nome = "natan"
+print("O nome", nome, "eh palindromo?", palindromo(nome, 0, len(nome) - 1))
+
+```
+
+### Java
+
+```java
+// Entrada padrão
+import java.util.Scanner;
+
+public class Palindromo
+{
+  // Função recursiva
+  static boolean palindromo(String str, int comeco, int fim)
+  {
+    // Primeiro caso base
+    if(comeco == fim)
+      return true;
+    // Segundo caso base
+    else if(str.charAt(comeco) != str.charAt(fim))
+      return false;
+    else
+    // Passo em direção ao fim do problema
+      return palindromo(str, comeco + 1, fim - 1);
+  }
+
+  public static void main(String[] args)
+  {
+    String nome = "natan";
+    System.out.println("O nome " + nome + " eh palindromo? " + palindromo(nome, 0, nome.length() - 1));
+  }
+}
+```
+
+### C
+
+```c
+/* Entrada e saída padrão */
+#include <stdio.h>
+/* Para usar strlen() */
+#include <string.h>
+
+/* Função recursiva */
+int palindromo(char *str, int comeco, int fim)
+{
+  /* Primeiro caso base */
+  if(comeco == fim)
+    return 1;
+  /* Segundo caso base */
+  else if(str[comeco] != str[fim])
+    return 0;
+  else
+  /* Passo em direção ao fim do problema */
+    return palindromo(str, comeco + 1, fim - 1);
+}
+
+int main(int argc, char** argv[])
+{
+  char* nome = "natan";
+  printf("O nome [%s] eh palindromo? %d", nome, palindromo(nome, 0, strlen(nome) - 1));
+
+  return 0;
+}
+```
+
+### C++
+
+```cplusplus
+// Entrada e saída padrão
+#include <iostream>
+// Para usar string
+#include <string>
+
+using namespace std;
+
+// Função recursiva
+bool palindromo(string str, int comeco, int fim)
+{
+  // Primeiro caso base
+  if(comeco == fim)
+    return true;
+  // Segundo caso base
+  else if(str[comeco] != str[fim])
+    return false;
+  else
+  // Passo em direção ao fim do problema
+    return palindromo(str, comeco + 1, fim - 1);
+}
+
+int main(int argc, char* argv[])
+{
+  string nome = "natan";
+  cout << "O nome [" << nome << "] eh palindromo? " << boolalpha << palindromo(nome, 0, nome.length() - 1) << endl;
+
+  return 0;
+}
+```
+
+### CSharp
+
+```csharp
+using System;
+
+public class Palindromo
+{
+  // Função recursiva
+  static bool palindromo(string str, int comeco, int fim)
+  {
+    // Primeiro caso base
+    if(comeco == fim)
+      return true;
+    // Segundo caso base
+    else if(str[comeco] != str[fim])
+      return false;
+    else
+    // Passo em direção ao fim do problema
+      return palindromo(str, comeco + 1, fim - 1);
+  }
+
+  public static void Main(string[] args)
+  {
+    string nome = "natan";
+    Console.WriteLine("O nome {0} eh palindromo? {1}", nome, palindromo(nome, 0, nome.Length - 1));
+  }
+}
+```
+
+##
+
+
+
+Temos uma novidade nesse algoritmo recursivo. Algo que não vimos antes era uma função recursiva com mais de um caso base. Sim, uma função pode ter n casos bases. Uma função recursiva **precisa** ter pelo menos um caso base, portanto, pode ter mais de um ( **caso base >= 1 **).
+Nosso algoritmo para verificar se uma string é palíndromo funciona da seguinte forma:
+
+*Uma string vazia ou com somente uma letra é um palíndromo.*
+
+Na string **natan** o algoritmo funciona da seguinte forma:
+
+**n**ata**n** Compara as duas extremidades, se forem diferentes retorne zero, pois não é um palíndromo.
+Caso sejam iguais, precisamos continuar nosso algoritmo. Imagine um caso:
+
+**america**
+
+Ao comparar **a**meric**a**, a primeira e a última letras são iguais, porém a**m**eri**c**a são diferentes, logo não é um palíndromo.
+
+Então precisamos continuar até chegarmos ao caso base (uma string com somente uma letra)
+
+n**a**t**a**n também são iguais, então faça mais uma chamada recursiva
+
+na**t**an -> um caracter sozinho é palíndromo dele mesmo. Como ele é o caracter do meio, significa que todos a sua esquerda já foram comparados com todos a sua direita e todas as comparações foram verdadeiras, logo essa string é um palíndromo.
+
+---
+
+###Maior valor em um *array*
+
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+# Retorna o maior valor entre dois numeros
+def maximo(a, b):
+    return a if a > b else b
+
+# Função recursiva
+def maior(vetor, cursor):
+  # Caso base
+  if cursor == 0: 
+    return vetor[cursor];
+  else:
+  # Passo em direção ao fim do problema
+    return maximo(vetor[cursor], maior(vetor, cursor - 1));
+
+
+vetor = [30, 5, 12, 32, 5, 7, 9, 10, 22, 100]
+print("Maior valor: ", maior(vetor, len(vetor) - 1))
+```
+
+### Java
+
+```java
+// Entrada padrão
+import java.util.Scanner;
+
+public class MaiorValor
+{
+    // Retorna o maior valor entre dois numeros
+    static int maximo(int a, int b)
+    {
+      return a > b ? a : b;
+    }
+
+    // Função recursiva
+    static int maior(int[] vetor, int cursor)
+    {
+      // Caso base
+      if(cursor == 0) 
+        return vetor[cursor];
+      else
+      // Passo em direção ao fim do problema
+        return maximo(vetor[cursor], maior(vetor, cursor - 1));
+    }
+
+    public static void main(String[] args)
+    {
+      int[] vetor = {50, 5, 12, 32, 5, 7, 9, 10, 22, 100};
+      System.out.println("Maior valor: " + maior(vetor, vetor.length - 1));
+    }
+}
+```
+
+### C
+
+```c
+/* Entrada e saída padrão */
+#include <stdio.h>
+
+#define TAMANHO 10
+
+/* Retorna o maior valor entre dois numeros */
+int maximo(int a, int b)
+{
+  return a > b ? a : b;
+}
+
+/* Função recursiva */
+int maior(int vetor[TAMANHO], int cursor)
+{
+  /* Caso base */
+  if(cursor == 0)
+    return vetor[cursor];
+  else
+  /* Passo em direção ao fim do problema */
+    return maximo(vetor[cursor], maior(vetor, cursor - 1));
+}
+
+int main(int argc, char* argv[])
+{
+  int vetor[TAMANHO] = {30, 5, 12, 32, 5, 7, 9, 10, 22, 1};
+  printf("Maior valor: %d\n", maior(vetor, TAMANHO - 1));
+
+  return 0;
+}
+```
+
+### C++
+
+```cplusplus
+// Entrada e saída padrão
+#include <iostream>
+
+using namespace std;
+
+#define TAMANHO 10
+
+// Retorna o maior valor entre dois numeros
+int maximo(int a, int b)
+{
+  return a > b ? a : b;
+}
+
+// Função recursiva
+int maior(int vetor[TAMANHO], int cursor)
+{
+  // Caso base
+  if(cursor == 0)
+    return vetor[cursor];
+  else
+  // Passo em direção ao fim do problema
+    return maximo(vetor[cursor], maior(vetor, cursor - 1));
+}
+
+int main(int argc, char* argv[])
+{
+  int vetor[TAMANHO] = {50, 5, 12, 32, 5, 7, 9, 10, 22, 100};
+  cout << "Maior valor: " << maior(vetor, TAMANHO - 1) << endl;
+
+  return 0;
+}
+```
+
+### CSharp
+
+```csharp
+using System;
+
+public class MaiorValor
+{
+  // Retorna o maior valor entre dois numeros
+  static int maximo(int a, int b)
+  {
+    return a > b ? a : b;
+  }
+
+  // Função recursiva
+  static int maior(int[] vetor, int cursor)
+  {
+    // Caso base
+    if(cursor == 0)
+      return vetor[cursor];
+    else
+    // Passo em direção ao fim do problema
+      return maximo(vetor[cursor], maior(vetor, cursor - 1));
+  }
+
+  public static void Main(string[] args)
+  {
+    int[] vetor = new int[] {50, 5, 12, 32, 5, 7, 9, 10, 22, 100};
+    Console.WriteLine("Maior valor: {0}", maior(vetor, vetor.Length - 1));
+  }
+}
+```
+
+##
+
+
+Esse algoritmo retorna o maior valor de um vetor. Para a implementação desse algoritmo precisei criar uma função auxiliar para retornar o maior entre dois números. Quando se está trabalhando com recursão é muito comum criarmos funções auxiliares para deixar o mais claro possível o modo como nosso algoritmo trabalha. Começamos a nossa recursão pelo fim do vetor e caminhamos o cursor em direção início do vetor, então esse é o nosso *passo em direção ao fim* e nosso *caso base* é quando chegamos ao primeiro elemento do vetor. Significa que já percorremos todos os elementos e é hora de comparar um com o outro e ir retornando o maior, até que o maior elemento da função seja retornado.
+
+#
+
+###Colocando em prática
+Faça um algoritmo recursivo que tenha como saída qual é o menor elemento de um *array*.
+
+**Exemplo:**
+
+Entrada: vetor = [6, 5, 4, 9, 110, 54, 3, 4, 25]
+
+Saída: 3
+
+O algoritmo iterativo para esse problema seria:
+
+## {.tabset .tabset-fade}
+
+### Pseudo Código
+
+```python
+
+Algoritmo "menor_valor"
+Var
+vet : vetor[1..9] de inteiro
+menor : inteiro
+i : inteiro
+
+Inicio
+  para i de 1 ate 9 faca
+    escreva("Entre com um valor: ")
+    leia(vet[i])
+  fimpara
+  
+  menor <- vet[1]
+ 
+  para i de 1 ate 9 faca
+    se vet[i] < menor entao
+       menor <- vet[i]
+    fimse
+  fimpara
+
+ escreva("Menor: ", menor)
+
+Fimalgoritmo
+
+```
+
+### Resposta
+
+```python
+
+# Retorna o maior valor entre dois numeros
+def minimo(a, b):
+    return a if a < b else b
+
+# Função recursiva
+def menor(vetor, cursor):
+  # Caso base
+  if cursor == 0:
+    return vetor[cursor];
+  else:
+  # Passo em direção ao fim do problema
+    return minimo(vetor[cursor], menor(vetor, cursor - 1));
+
+
+vetor = [30, 5, 12, 32, 5, 7, 9, 10, 22, 100]
+print("Menor valor: ", menor(vetor, len(vetor) - 1))
+
+
+```
+
+##
+
+**Há diversos algoritmos que podem ser escritos de forma recursiva. Os algoritmos apresentados aqui são somente alguns exemplos para que você possa ser capaz de analisar um problema e saber quando a recursão seria a melhor solução para resolvê-lo. Entraremos agora no tema Estrutura de Dados, onde é fundamental o uso da recursão.**
+
+---
+
+<br/>
+<br/>
+
+##Estrutura de Dados
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;É impossível pensar em estruturas de dados e não pensar em recursão. Estruturas do tipo lista, árvore, fila, entre outras são manipuladas na maior parte do tempo através de algoritmos recursivos. Desde a inserção numa lista encadeada até o balanceamento de uma árvore AVL. Não faremos algoritmos para manipulação de árvores nesse trabalho, pois estou desenvolvendo esse material para Prog II, onde geralmente as estruturas estudadas são listas, filas e pilhas.
+
+
+Para as implementações dos algoritmos, usaremos a seguinte estrutura para uma **L**ista **S**implesmente **E**ncadeada:
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+class LSE:
+    def __init__(self, informacao = None, proximo = None):
+        self.informacao = informacao
+        self.proximo = proximo
+
+    def __str__(self):
+        return str(self.informacao)
+```
+
+### Java
+
+
+
+tab content 2
+
+### C
+
+```c
+typedef struct No
+{
+  int informacao;
+  struct No* proximo;
+} LSE;
+```
+
+### C++
+
+```cplusplus
+class LSE
+{
+  public:
+    int informacao;
+    LSE* proximo;
+    
+    LSE()
+    {
+      informacao = NULL;
+      proximo = nullptr;
+    }
+};
+```
+
+### CSharp
+
+tab content 2
+
+##
+
+
+
+###Invertendo uma **L**ista **S**implesmente **E**ncadeada
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+def exibirLista(lista):
+     if lista != None:
+         print(lista, end=" ")
+         exibirLista(lista.proximo)
+     else:
+         print() # Pular linha no final
+
+
+def inverterLista(lista):
+     if lista == None or lista.proximo == None:
+        return lista
+     else:
+        no = lista.proximo
+        lista.proximo = None
+        invertida = inverterLista(no)
+        no.proximo = lista
+        return invertida
+
+
+
+lista = LSE(1, LSE(2, LSE(3, None)))
+
+exibirLista(lista)
+
+lista = inverterLista(lista)
+
+exibirLista(lista)
+```
+
+### Java
+
+
+
+tab content 2
+
+### C
+
+```c
+LSE* inverter(LSE* lista)
+{
+   // Caso base - Uma lista vazia ou com somente um elemento já está invertida
+   if(!lista || !lista->proximo)
+  	{
+  		return lista;
+  	}
+  	else
+  	{
+    	LSE* no = lista->proximo;
+    
+    	lista->proximo = NULL;
+    
+      // Passo em direção ao fim
+    	TLSE* invertida = inverter(no);
+    
+    	no->proximo = lista;
+    
+      return invertida;
+  	}
+}
+```
+
+### C++
+
+tab content 2
+
+### CSharp
+
+tab content 2
+
+##
+
+A lista de entrada é: 1 -> 2 -> 3
+
+A lista de saída será: 3 -> 2 -> 1
+
+O código fica completamente legível quando se faz com recursão. Para inverter uma lista simplesmente encadeada de forma iterativa seria necessário mais recursos e não ficaria tão bom quanto de forma recursiva.
+
+###Buscar elemento em uma **L**ista **S**implesmente **E**ncadeada
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+def exibirLista(lista):
+     if lista != None:
+         print(lista, end=" ")
+         exibirLista(lista.proximo)
+     else:
+         print() # Pular linha no final
+
+
+def buscar(lista, informacao):
+   if lista == None or lista.informacao == informacao:
+      return lista
+   else:
+      return buscar(lista.proximo, informacao)
+
+
+lista = LSE(1, LSE(2, LSE(3, None)))
+
+exibirLista(lista)
+print(buscar(lista, 2))
+print(buscar(lista, 10))
+```
+
+### Java
+
+
+
+tab content 2
+
+### C
+
+```c
+LSE* buscar(int info, LSE* lista)
+{
+   if(!lista || lista->informacao == info)
+      return lista;
+   else
+      return buscar(info, lista->proximo);
+}
+```
+
+### C++
+
+tab content 2
+
+### CSharp
+
+tab content 2
+
+##
+
+Caso o elemento seja encontrado é retornado uma referência para ele. Caso ele não exista, null é retornado.
+A busca recursiva só para quando o elemento é encontrado ou o fim da lista é atingido.
+
+Exemplo: Elemento buscado: 3
+
+Lista: 1 -> 4 -> 6 -> 3 -> null
+
+O algoritmo irá verificar o 1º nó. O elemento do primeiro nó é 1. Não é nulo e não é igual ao nosso elemento buscado, então procure no próximo. 4 não é nulo, porém não é o que procuramos.
+6 não é nulo, mas não é o que procuramos. Finalmente chegamos no 3. 3 não é nulo e é o que buscamos, então retorne o 3. Caso o numero buscado fosse o 100, por exemplo, ao passar do 3, o elemento retornado seria nulo, pois não faz parte da lista.
+
+
+###Exibir elementos de uma **L**ista **S**implesmente **E**ncadeada
+
+Já utilizamos alguns exemplos de *prints* recursivos nos exemplos anteriores, mas seria legal dar uma explicação mais detalhada de como ele funciona.
+
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+def exibirLista(lista):
+     if lista != None:
+         print(lista, end=" ")
+         exibirLista(lista.proximo)
+     else:
+         print() # Pular linha no final
+
+def exibirListaInvertida(lista):
+     if lista != None:
+         exibirListaInvertida(lista.proximo)
+         print(lista, end=" ")
+     else:
+         print() # Pular linha no final
+```
+
+### Java
+
+
+
+tab content 2
+
+### C
+
+```c
+void exibir(LSE* lista)
+{
+  if(lista)
+  {
+    printf("%d ", lista->informacao);
+    exibir(lista->proximo);
+  }
+}
+
+void exibir_invertido(LSE* lista)
+{
+  if(lista)
+  {
+    exibir(lista->proximo);
+    printf("%d ", lista->informacao);
+  }
+}
+```
+
+### C++
+
+tab content 2
+
+### CSharp
+
+tab content 2
+
+##
+
+Temos duas funções de exibição. As duas funções diferem somente na ordem dos comandos, porém isso muda completamente a saída.
+Ao colocar o print após a chamada recursiva, ele só será chamado ao chegar no último elemento e exibirá todos os elementos de trás pra frente.
+
+```
+lista: 1 -> 2 -> 3
+
+exibirLista(lista)
+
+```
+
+Saída: 1 -> 2 -> 3
+
+
+```
+lista: 1 -> 2 -> 3
+
+exibirListaInvertida(lista)
+
+```
+
+Saída: 3 -> 2 -> 1
+
+<br/>
+<br/>
+
+
+**Praticamente todos os algoritmos para trabalhar com estruturas de dados são recursivos. Desde mudar a ordem de exibição de uma lista simplesmente encadeada até uma busca em grafos. A informação é uma das coisas mais importantes dos tempos modernos, então é extremamente importante saber como estruturá-la e manipulá-la. É praticamente impossível trabalhar com estruturas de dados sem usar recursão. E essa é só mais uma das importâncias da recursão na programação. Vamos agora ver uma técnica conhecida como retrocesso, que é um refinamento da força bruta e é implementado através da recursão.**
+
+---
+
+<br/>
+<br/>
+
+##Retrocesso
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O retrocesso, ou *backtracking* em inglês, é um tipo de algoritmo que representa um refinamento da busca por força bruta e é utilizado para encontrar soluções para problemas computacionais onde várias soluções podem ser abandonadas antes mesmo de serem examinadas. Estudaremos alguns algoritmos que utilizam retrocesso e explicarei a diferença entre força bruta e retrocesso.
+
+###Problema das 8 Rainhas
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Um dos problemas mais conhecidos quando se trata de retrocesso é o **problema das 8 rainhas**. Neste problema tudo que você precisa fazer é colocar 8 rainhas em um tabuleiro de xadrez de dimensão 8x8, de forma que nenhuma delas se ataquem. 
+Para não se atacarem, as rainhas precisam seguir algumas regras:
+
+**Mais de 1 rainha não pode estar:**
+
++ Na mesma linha
++ Na mesma coluna
++ Na mesma diagonal
+  
+Por exemplo, o tabuleiro 4x4 abaixo fornece uma configuração inválida , pois uma rainha ataca a outra pela diagonal.
+
+```
+
+ 0 | 1 | 2 | 3 | 4
+---|---|---|---|---
+ 1 | X |   |   |
+---|---|---|---|---
+ 2 |   | X |   |
+---|---|---|---|---
+ 3 |   |   |   |   
+---|---|---|---|---
+ 4 |   |   |   |
+
+```
+<br/>
+
+####Qual seria uma configuração válida para o problema das rainhas em um tabuleiro 4x4?
+
+```
+
+ 0 | 1 | 2 | 3 | 4
+---|---|---|---|---
+ 1 |   | X |   |
+---|---|---|---|---
+ 2 |   |   |   | X
+---|---|---|---|---
+ 3 | X |   |   |   
+---|---|---|---|---
+ 4 |   |   | X |
+
+```
+No tabuleiro acima nenhuma rainha se ataca seguindo os critérios do problema.
+Como podemos fazer um algoritmo para resolver esse problema? Usaremos retrocesso.
+
+##Por que usar retrocesso nesse problema?
+
+Imagine a seguinte configuração:
+
+```
+
+ 0 | 1 | 2 | 3 | 4
+---|---|---|---|---
+ 1 | X |   |   |
+---|---|---|---|---
+ 2 |   |   | X |  
+---|---|---|---|---
+ 3 |   |   |   |   
+---|---|---|---|---
+ 4 |   |   |   |
+
+```
+Qualquer rainha colocada na terceira linha causará conflito com as já colocadas no tabuleiro.
+
+Tabuleiro[3][1] conflito com Tabuleiro[1][1] ( Está na mesma coluna ).
+
+Tabuleiro[3][2] conflito com Tabuleiro[2][3] ( Está na mesma diagonal ).
+
+Tabuleiro[3][3] conflito com Tabuleiro[2][3] e com Tabuleiro[1][1] ( Está na mesma diagonal e coluna ).
+
+Tabuleiro[3][4] conflito com Tabuleiro[2][3]. ( Está na mesma diagonal ).
+
+
+Ao chegar nesse caso um algoritmo de força bruta continuaria colocando rainhas no tabuleiro mesmo não havendo solução para a configuração.
+Já um algoritmo de retrocesso ao se deparar com uma situação desse tipo descarta essa possibilidade de solução e **retrocede**. No retrocesso desse problema, o algoritmo simplesmente volta para a segunda linha
+e anda a rainha uma casa para a direita.
+
+
+```
+
+ 0 | 1 | 2 | 3 | 4
+---|---|---|---|---
+ 1 | X |   |   |
+---|---|---|---|---
+ 2 |   |   |   | X
+---|---|---|---|---
+ 3 |   |   |   |   
+---|---|---|---|---
+ 4 |   |   |   |
+
+```
+
+Ao fazer isso, agora é possível colocar uma rainha na terceira linha sem que haja conflito com as que já estão colocadas.
+
+```
+
+ 0 | 1 | 2 | 3 | 4
+---|---|---|---|---
+ 1 | X |   |   |
+---|---|---|---|---
+ 2 |   |   |   | X
+---|---|---|---|---
+ 3 |   | X |   |   
+---|---|---|---|---
+ 4 |   |   |   |
+
+```
+
+Esses passos serão repetidos até que uma solução seja encontrada. Essa é a diferença entre força bruta e retrocesso. Um algoritmo de retrocesso é capaz de descartar soluções impossíveis sem precisar explorá-las.
+
+
+
+####Algoritmo
+## {.tabset .tabset-fade}
+
+### Python
+
+```python
+
+class No
+  pass
+
+```
+
+### Java
+```Java
+
+public class NRainhas
+{    
+	// Atributos
+    private static final int RAINHA = 1;
+    private static final int VAZIO = 0;
+
+    private int[][] tabuleiro;
+
+    // Construtor
+    public NRainhas(int dimensao)
+    {
+    	tabuleiro = criarTabuleiro(dimensao);
+    }
+    
+    // Métodos
+
+    // Cria um tabuleiro com tamanho dimensao x dimensao
+    private int[][] criarTabuleiro(int dimensao)
+    {
+        int[][] resultado = new int[dimensao][dimensao]; 
+    
+        return resultado;
+    }
+    
+    // Retorna true caso haja algum conflito na solução
+    private boolean conflito(int linha, int coluna) 
+    {
+        for(int i = 0; i < linha; i++)
+        {
+            if (tabuleiro[i][coluna] == RAINHA)
+            {
+                return false;
+            }
+        }
+
+        for(int lin = 0; lin < linha; lin++)
+        { 
+            for(int col = 0; col < tabuleiro[linha].length; col++)
+            {
+                if((tabuleiro[lin][col] == RAINHA) && 
+                  ((linha - lin) == (coluna - col) || 
+                   (linha - lin) == (col - coluna)))
+                {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+
+    // backtracking
+    private void encontrarSolucoes(int linha)
+    {
+        if(linha == tabuleiro.length)
+        {
+            System.out.println(this);
+        } 
+        else
+        {
+            for(int coluna = 0; coluna < tabuleiro[linha].length; coluna++)
+            {
+                if(tabuleiro[linha][coluna] == VAZIO)
+                {
+                    tabuleiro[linha][coluna] = RAINHA;
+
+                    if(conflito(linha, coluna))
+                    {
+                        encontrarSolucoes(linha + 1);
+                    }
+
+                    tabuleiro[linha][coluna] = VAZIO;
+                }            
+            }
+        }
+    }
+
+    public String toString()
+    {
+        String resultado = "";
+        
+        for(int linha = 0; linha < tabuleiro.length; linha++)
+        {
+            for(int coluna = 0; coluna < tabuleiro[linha].length; coluna++)
+            {
+                resultado += " " + tabuleiro[linha][coluna];
+            }
+
+            resultado += "\n";
+        }
+
+        return resultado;
+    }
+
+
+    public static void main(String[] args)
+    {       
+    	NRainhas jogo = new NRainhas(8);
+        jogo.encontrarSolucoes(0);   
+    }    
+}
+
+
+```
+
+### C
+
+```c
+
+LSE* inverter(LSE* lista)
+{
+   // Caso base - Uma lista vazia ou com somente um elemento já está invertida
+   if(!lista || !lista->proximo)
+  	{
+  		return lista;
+  	}
+  	
+  	LSE* no = lista->proximo;
+  
+  	lista->proximo = NULL;
+  
+    // Passo em direção ao fim
+  	TLSE* invertida = inverter(no);
+  
+  	no->proximo = lista;
+  
+  return invertida;
+}
+
+```
+
+### C++
+
+tab content 2
+
+### CSharp
+
+tab content 2
+
+##
+
+
+**Chegamos ao fim das explicações sobre retrocesso. Espero que tenha tirado algum proveito desse material.**
+
+
+---
+
+<br/>
+
+###**Considerações finais:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desenvolvi esse material para auxiliar na disciplina de **Prog II** na **Universidade Federal Fluminense** nas minhas horas destinadas a tal atividade. Esse material é de uso livre para consulta de todos. Praticamente todos os algoritmos foram escritos por mim, então sinta-se livre para usá-los ou para corrigi-los caso encontre algum erro. Espero que esse material tenha sido claro o bastante e tenha ajudado de alguma forma no seu aprendizado e que, pelo menos, tenha te dado um norte sobre o que é recursão. Você só aprenderá de fato recursão fazendo bastante exercícios. Dessa forma você treinará seu cérebro a saber reconhecer problemas recursivos e saberá como aplicar a recursão de forma natural e verá que não é um dragão de 7 cabeças ( talvez 3 ).
+
+Se você chegou até aqui, significa que executou todas as funções do nosso material, então vamos ver se você aprendeu mesmo recursão?
+**Clique na função baixo responda novamente a 1ª pergunta.**
+
+##[Recursão]()\(\)
+
+---
+
+<br/>
+<br/>
+<br/>
+
+###**Referências:**
+
+
+ROBERTS, Eric S. **Thinking Recursively with Java**. Wiley, 2005.
+<br/>
+<br/>
+SEDGEWICK, Robert; WAYNE, Kevin. **Algorithms**: 4th edition. Addison-Wesley Professional, 2011.
+<br/>
+<br/>
+Como pensar como um Cientista da Computação: Recursão. 2012. Disponível em: <https://panda.ime.usp.br/pensepy/static/pensepy/12-Recursao/recursionsimple-ptbr.html>. Acesso em 8 jul. 2017.
+<br/>
+<br/>
+FEOFILOFF, Paulo. **Recursão e algoritmos recursivos**. 2017. Disponível em: <https://www.ime.usp.br/~pf/algoritmos/aulas/recu.html>. Acesso em 8 jul. 2017.
+<br/>
+<br/>
+ERICKSON, Jeff. **Algorithms**: Backtracking. 2014. Disponível em: <http://jeffe.cs.illinois.edu/teaching/algorithms/notes/03-backtracking.pdf>. Acesso em 8 jul. 2017.
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
