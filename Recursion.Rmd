@@ -8,7 +8,7 @@ output:
 ####*Leonardo Machado*
 ####*Graduação em Ciência da Computação*
 ####*Universidade Federal Fluminense*
-####*Niteroi, 2017*
+####*Niterói, 2017*
 
 <link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
@@ -30,21 +30,20 @@ knitr::opts_chunk$set(echo = TRUE)
   **Se sim, boa sorte na vida e bons estudos.**<br/>
   **Se não, leia esse trabalho e aprenda!**
 
+##Sobre o trabalho:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**T**eremos exemplos ao decorrer do trabalho de diversos códigos recursivos, porém serão um punhado comparado a quantidade de algoritmos que é possível desenvolver de forma recursiva. Farei o possível para escrever todos os algoritmos em **português**, pois acredito que quando aprendemos na nossa própria língua a absorção é bem maior. O objetivo desse trabalho é introduzir a ideia recursiva e a importância do seu uso.
+Tudo que pode-se fazer de forma recursiva é possível fazer de forma iterativa (*for*, *while*, *do while*), então por que usar recursão? Até o fim desse trabalho tentarei convencê-lo dos poderes e da importância da recursão.
+O trabalho é mantido em um repositório no ***github***. Caso deseje complementar o conteúdo ou corrigir algum erro que encontrou, basta [clicar aqui.](https://github.com/Lmachado73/Recursion)
+
 ##O que é?
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uma técnica de programação que envolve o uso de um *procedure*, subrotina, função ou algoritmo que é definido em razão de si mesmo e se chama uma ou mais vezes até uma condição de parada ser encontrada, então todas as chamadas anteriores são processadas da última até a primeira.
 
 ##Onde usaremos?
 * **Operações com strings:** Desde simples operações como comparar duas *strings* até operações mais elaboradas como verificar se a palavra é um [Palíndromo](http://www.soportugues.com.br/secoes/palindromos/), por exemplo.
-* **Estruturas de dados:** Listas encadeadas, árvores, grafos. Em operações como inverter uma lista simplesmente encadeada, percorrer uma árvore em ordem, pós ordem ou pré ordem, achar caminhos em grafos, etc.
+* **Estruturas de dados:** Listas encadeadas, [árvores](https://en.wikipedia.org/wiki/Tree_(data_structure)), grafos. Em operações como inverter uma lista simplesmente encadeada, percorrer uma árvore em ordem, pós ordem ou pré ordem, achar caminhos em grafos, etc.
 * **Problemas combinacionais:** Análises combinatórias, permutações, etc.
 * **Operações matemáticas:** Praticamente, se não todas, operações matemáticas podem ser resolvidas de forma recursiva. Devido a isso as aplicações mais comuns da recursão são feitas na ciência da computação e na matemática.
 * **Encontrar caminhos ou soluções:** Encontrar caminho em um labirinto, o menor caminho entre dois pontos, achar a solução para algum *puzzle* ou encontrar a solução para um jogo de xadrez. 
-
-
-##Sobre o trabalho:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Teremos vários exemplos ao decorrer do trabalho de várias aplicações recursivas abordando os tópicos supracitados, porém serão um punhado comparado a quantidade de coisas que são possíveis fazer de forma recursiva. Farei o possível para escrever todos os algoritmos em **português**, pois acredito que quando aprendemos na nossa própria língua a absorção é bem maior. O objetivo desse trabalho é introduzir a ideia recursiva e a importância do seu uso.
-Tudo que pode-se fazer de forma recursiva é possível fazer de forma iterativa (*for*, *while*, *do while*), então por que usar recursão? Até o fim desse trabalho tentarei convencê-lo dos poderes e da importância da recursão.
-
 
 ##Para quem é esse material?
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Esse material não é indicado para pessoas que nunca programaram.** Não ensinarei ninguém a programar, ensinarei a pensar de forma recursiva e a reconhecer problemas grandes que podem ser partidos em subproblemas para poderem ser resolvidos da forma "dividir para conquistar".
@@ -959,41 +958,100 @@ class LSE:
 ```
 
 ### Java
+```java
+public static class LSE
+{
+    public int informacao;
+    public LSE proximo;
 
+    public LSE(int informacao, LSE proximo)
+    {
+       this.informacao = informacao;
+       this.proximo = proximo;
+    }
 
-
-tab content 2
+	public String toString()
+    {
+       String resultado = Integer.toString(informacao);
+       return resultado;
+    }
+}
+```
 
 ### C
 
 ```c
+#ifndef LSE_H
+#define LSE_H
+
+#include <stdio.h>
+
 typedef struct No
 {
   int informacao;
   struct No* proximo;
 } LSE;
+
+void print(LSE* lista)
+{
+	if(lista)
+		printf("%d ", lista->informacao);
+}
+
+#endif /* LSE_H */
 ```
 
 ### C++
 
 ```cplusplus
+#ifndef LSE_H
+#define LSE_H
+
+#include <iostream>
+
+using namespace std;
+
 class LSE
 {
   public:
     int informacao;
     LSE* proximo;
     
-    LSE()
+    LSE(int informacao = NULL, LSE* proximo = nullptr)
     {
-      informacao = NULL;
-      proximo = nullptr;
+      this->informacao = informacao;
+      this->proximo = proximo;
     }
+	
+	void print()
+	{
+		cout << informacao << " " << endl;
+	}
 };
+
+#endif /* LSE_H */
 ```
 
 ### CSharp
+```csharp
+public class LSE
+{
+   public int informacao;
+   public LSE proximo;
 
-tab content 2
+   public LSE(int informacao, LSE proximo)
+   {
+      this.informacao = informacao;
+      this.proximo = proximo;
+   }
+
+   public override string ToString()
+   {
+      string resultado = this.informacao + " ";
+      return resultado;
+   }
+}
+```
 
 ##
 
@@ -1025,7 +1083,6 @@ def inverterLista(lista):
         return invertida
 
 
-
 lista = LSE(1, LSE(2, LSE(3, None)))
 
 exibirLista(lista)
@@ -1033,47 +1090,249 @@ exibirLista(lista)
 lista = inverterLista(lista)
 
 exibirLista(lista)
+
 ```
 
 ### Java
+```java
+class Inverter
+{
+    public static LSE inverter(LSE lista)
+    {
+        // Caso base - Uma lista vazia ou com somente um elemento já está invertida
+        if (lista == null || lista.proximo == null)
+        {
+            return lista;
+        }
+        else
+        {
+            LSE no = lista.proximo;
+
+            lista.proximo = null;
+
+            // Passo em direção ao fim
+            LSE invertida = inverter(no);
+
+            no.proximo = lista;
+
+            return invertida;
+        }
+    }
+
+    public static void print(LSE lista)
+    {
+        if (lista != null)
+        {
+            System.out.print(lista + " ");
+            print(lista.proximo);
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        LSE lista = new LSE(1, new LSE(2, new LSE(3, null)));
+        print(lista);
+        System.out.println();
+        lista = inverter(lista);
+        print(lista);
+        System.out.println();
+    }
+}
 
 
-
-tab content 2
+```
 
 ### C
 
 ```c
-LSE* inverter(LSE* lista)
+
+#include <stdio.h>
+#include <stdlib.h>
+
+void print(LSE* lista)
 {
-   // Caso base - Uma lista vazia ou com somente um elemento já está invertida
-   if(!lista || !lista->proximo)
-  	{
-  		return lista;
-  	}
-  	else
-  	{
-    	LSE* no = lista->proximo;
-    
-    	lista->proximo = NULL;
-    
-      // Passo em direção ao fim
-    	TLSE* invertida = inverter(no);
-    
-    	no->proximo = lista;
-    
-      return invertida;
-  	}
+    if(lista)
+        printf("%d ", lista->informacao);
 }
+
+LSE* inverterLista(LSE* lista)
+{
+	if(!lista || !lista->proximo)
+		return lista;
+
+	LSE* no = lista->proximo;
+
+	lista->proximo = NULL;
+
+	LSE* invertida = inverterLista(no);
+
+	no->proximo = lista;
+
+	return invertida;
+}
+
+void exibirLista(LSE* lista)
+{
+  if(lista)
+  {
+    printf("%d ", lista->informacao);
+    exibirLista(lista->proximo);
+  }
+}
+
+LSE* alocar(int informacao, LSE* proximo)
+{
+  LSE* resultado = (LSE*)malloc(sizeof(LSE));
+  resultado->informacao = informacao;
+  resultado->proximo = proximo;
+
+  return resultado;
+}
+
+void liberar(LSE* lista)
+{
+  if(lista)
+  {
+    liberar(lista->proximo);
+    free(lista);
+   }
+}
+
+int main(int argc, char* argv[])
+{
+  LSE *lista = alocar(1, alocar(2, alocar(3, NULL)));
+
+  exibirLista(lista);
+  printf("\n");
+  lista = lista = inverterLista(lista);
+  exibirLista(lista);
+
+  liberar(lista);
+
+  return 0;
+}
+
+
 ```
 
 ### C++
+```cplusplus
+#include <iostream>
 
-tab content 2
+using namespace std;
+
+void print(LSE* lista)
+{
+    if(lista)
+        cout << lista->informacao << " ";
+}
+
+LSE* inverterLista(LSE* lista)
+{
+	if(!lista || !lista->proximo)
+		return lista;
+
+	LSE* no = lista->proximo;
+
+	lista->proximo = NULL;
+
+	LSE* invertida = inverterLista(no);
+
+	no->proximo = lista;
+
+	return invertida;
+}
+
+void exibirLista(LSE* lista)
+{
+  if(lista)
+  {
+    cout << lista->informacao << " ";
+    exibirLista(lista->proximo);
+  }
+}
+
+LSE* alocar(int informacao, LSE* proximo)
+{
+  return new LSE(informacao, proximo);
+}
+
+void liberar(LSE* lista)
+{
+  if(lista)
+  {
+    liberar(lista->proximo);
+    delete lista;
+   }
+}
+
+int main(int argc, char* argv[])
+{
+  LSE *lista = alocar(1, alocar(2, alocar(3, NULL)));
+
+  exibirLista(lista);
+  cout << endl;
+  lista = lista = inverterLista(lista);
+  exibirLista(lista);
+
+  liberar(lista);
+
+  return 0;
+}
+
+
+```
 
 ### CSharp
+```csharp
+using System;
 
-tab content 2
+class Inverter
+{
+    public static LSE inverter(LSE lista)
+    {
+        // Caso base - Uma lista vazia ou com somente um elemento já está invertida
+        if (lista == null || lista.proximo == null)
+        {
+            return lista;
+        }
+        else
+        {
+            LSE no = lista.proximo;
+
+            lista.proximo = null;
+
+            // Passo em direção ao fim
+            LSE invertida = inverter(no);
+
+            no.proximo = lista;
+
+            return invertida;
+        }
+    }
+
+    public static void print(LSE lista)
+    {
+        if (lista != null)
+        {
+            Console.Write(lista);
+            print(lista.proximo);
+        }
+    }
+
+    public static void Main(string[] args)
+    {
+        LSE lista = new LSE(1, new LSE(2, new LSE(3, null)));
+        print(lista);
+        Console.WriteLine();
+        lista = inverter(lista);
+        print(lista);
+        Console.WriteLine();
+    }
+}
+
+
+```
 
 ##
 
@@ -1113,10 +1372,10 @@ print(buscar(lista, 10))
 ```
 
 ### Java
+```
+Em processo
+```
 
-
-
-tab content 2
 
 ### C
 
@@ -1131,12 +1390,20 @@ LSE* buscar(int info, LSE* lista)
 ```
 
 ### C++
-
-tab content 2
+```cplusplus
+LSE* buscar(int info, LSE* lista)
+{
+   if(!lista || lista->informacao == info)
+      return lista;
+   else
+      return buscar(info, lista->proximo);
+}
+```
 
 ### CSharp
-
-tab content 2
+```
+Em processo
+```
 
 ##
 
@@ -1176,10 +1443,9 @@ def exibirListaInvertida(lista):
 ```
 
 ### Java
-
-
-
-tab content 2
+```
+Em processo
+```
 
 ### C
 
@@ -1204,12 +1470,30 @@ void exibir_invertido(LSE* lista)
 ```
 
 ### C++
+```cplusplus
+void exibir(LSE* lista)
+{
+  if(lista)
+  {
+    cout << lista->informacao << " ";
+    exibir(lista->proximo);
+  }
+}
 
-tab content 2
+void exibir_invertido(LSE* lista)
+{
+  if(lista)
+  {
+    exibir(lista->proximo);
+    cout << lista->informacao << " ";
+  }
+}
+```
 
 ### CSharp
-
-tab content 2
+```
+Em processo
+```
 
 ##
 
@@ -1369,18 +1653,60 @@ Esses passos serão repetidos até que uma solução seja encontrada. Essa é a difer
 ### Python
 
 ```python
+class NRainhas:
+    def __init__(self, dimensao):
+        self.tabuleiro = [[0 for x in range(dimensao)] for y in range(dimensao)]
+        self.RAINHA = 1
+        self.VAZIO = 0
 
-class No
-  pass
+    def __str__(self):
+        resultado = ""
+
+        for linha in range(0, len(self.tabuleiro)):
+            resultado += str(self.tabuleiro[linha])
+            resultado += "\n"
+            
+        return resultado
+
+    
+    def temConflito(self, linha, coluna):
+        for i in range(0, linha):
+            if self.tabuleiro[i][coluna] == self.RAINHA:
+                return True
+
+        for lin in range(0, linha):
+            for col in range(0, len(self.tabuleiro[linha])):
+                if (self.tabuleiro[lin][col] == self.RAINHA) and ((linha - lin) == (coluna - col) or (linha - lin) == (col - coluna)):
+                    return True
+
+        return False
+
+
+    def encontrarSolucoes(self, linha):
+        if linha == len(self.tabuleiro):
+            print(self)
+        else:
+            for coluna in range(0, len(self.tabuleiro[linha])):
+                if(self.tabuleiro[linha][coluna] == self.VAZIO):
+                    self.tabuleiro[linha][coluna] = self.RAINHA
+
+                    if self.temConflito(linha, coluna) == False:
+                        self.encontrarSolucoes(linha + 1)
+
+                    self.tabuleiro[linha][coluna] = self.VAZIO
+
+
+  
+jogo = NRainhas(4)
+jogo.encontrarSolucoes(0)
 
 ```
 
 ### Java
 ```Java
-
 public class NRainhas
 {    
-	// Atributos
+    // Atributos
     private static final int RAINHA = 1;
     private static final int VAZIO = 0;
 
@@ -1389,7 +1715,7 @@ public class NRainhas
     // Construtor
     public NRainhas(int dimensao)
     {
-    	tabuleiro = criarTabuleiro(dimensao);
+        tabuleiro = criarTabuleiro(dimensao);
     }
     
     // Métodos
@@ -1475,47 +1801,364 @@ public class NRainhas
 
     public static void main(String[] args)
     {       
-    	NRainhas jogo = new NRainhas(8);
+        NRainhas jogo = new NRainhas(4);
         jogo.encontrarSolucoes(0);   
     }    
 }
-
 
 ```
 
 ### C
 
 ```c
+#include <stdio.h>
+#include <stdlib.h>
 
-LSE* inverter(LSE* lista)
+#define RAINHA 1
+#define VAZIO 0
+
+void print(int **tabuleiro, int dimensao)
 {
-   // Caso base - Uma lista vazia ou com somente um elemento já está invertida
-   if(!lista || !lista->proximo)
-  	{
-  		return lista;
-  	}
-  	
-  	LSE* no = lista->proximo;
-  
-  	lista->proximo = NULL;
-  
-    // Passo em direção ao fim
-  	TLSE* invertida = inverter(no);
-  
-  	no->proximo = lista;
-  
-  return invertida;
+	for(int linha = 0; linha < dimensao; linha++)
+	{		
+		for(int coluna = 0; coluna < dimensao; coluna++)
+			printf("%d ", tabuleiro[linha][coluna]);
+
+		printf("\n");
+	}
+
+	printf("\n");
+}
+
+	// Retorna true caso haja algum conflito na solução
+int conflito(int **tabuleiro, int linha, int coluna, int dimensao)
+{
+	int i = 0;
+	int lin = 0;
+	int col = 0;
+
+	for(i = 0; i < linha; i++)
+	{
+		if(tabuleiro[i][coluna] == RAINHA)
+			return 0;
+	}
+		for(lin = 0; lin < linha; lin++)
+	{
+		for(col = 0; col < dimensao; col++)
+		{
+			if((tabuleiro[lin][col] == RAINHA) &&
+				((linha - lin) == (coluna - col) ||
+				(linha - lin) == (col - coluna)))
+			{
+				return 0;
+			}
+		}
+	}
+		return 1;
+}
+
+
+void encontrarSolucoes(int **tabuleiro, int linha, int dimensao)
+{
+	int coluna = 0;
+
+	if(linha == dimensao)
+	{
+		print(tabuleiro, dimensao);
+	}
+	else
+	{
+		for(coluna = 0; coluna < dimensao; coluna++)
+		{
+			if(tabuleiro[linha][coluna] == VAZIO)
+			{
+				tabuleiro[linha][coluna] = RAINHA;
+
+				if(conflito(tabuleiro, linha, coluna, dimensao))
+					encontrarSolucoes(tabuleiro, linha + 1, dimensao);
+				
+				tabuleiro[linha][coluna] = VAZIO;
+			}
+		}
+	}
+}
+
+
+
+
+int main(int argc, char* argv[])
+{
+	const int SIZE = 4;
+	int i = 0;
+
+	int **tabuleiro = (int**)calloc(SIZE, sizeof(int*));
+
+	for(i = 0; i < SIZE; i++)
+		tabuleiro[i] = (int*)calloc(SIZE, sizeof(int));
+
+	encontrarSolucoes(tabuleiro, 0, SIZE);
+
+	if(tabuleiro)
+	{
+		for(i = 0; i < SIZE; i++)
+		{
+			if(tabuleiro[i])
+			{
+				free(tabuleiro[i]);
+				tabuleiro[i] = 0;
+			}			
+		}
+
+		free(tabuleiro);
+		tabuleiro = 0;
+	}
+	
+
+	return 0;
+}
+
 }
 
 ```
 
 ### C++
+```cplusplus
+#include <iostream>
+#include <string>
+#include <sstream>
 
-tab content 2
+using namespace std;
+
+#define RAINHA 1
+#define VAZIO 0
+
+class NRainhas
+{
+	// Atributos
+private:
+	int **tabuleiro;
+	int dimensao;
+
+private:
+	// Retorna true caso haja algum conflito na solução
+	bool conflito(int linha, int coluna)
+	{
+		for(int i = 0; i < linha; i++)
+		{
+			if(tabuleiro[i][coluna] == RAINHA)
+			{
+				return false;
+			}
+		}
+
+		for(int lin = 0; lin < linha; lin++)
+		{
+			for(int col = 0; col < this->dimensao; col++)
+			{
+				if((tabuleiro[lin][col] == RAINHA) &&
+					((linha - lin) == (coluna - col) ||
+					(linha - lin) == (col - coluna)))
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+public:
+	// Construtor
+	NRainhas(int dimensao)
+	{
+		this->dimensao = dimensao;
+		this->tabuleiro = new int*[dimensao];
+
+		for(int i = 0; i < this->dimensao; i++)
+		{
+			tabuleiro[i] = new int[dimensao]();
+		}
+	}
+
+	~NRainhas()
+	{
+		if(tabuleiro)
+		{
+			for(int i = 0; i < this->dimensao; i++)
+			{
+			
+				if(tabuleiro[i])
+				{
+					delete tabuleiro[i];
+					tabuleiro[i] = nullptr;
+				}
+		
+			}
+
+			delete[] tabuleiro;
+			tabuleiro = nullptr;
+		}
+	}
+
+	// backtracking
+	void encontrarSolucoes(int linha)
+	{
+		if(linha == this->dimensao)
+		{
+			print();
+		}
+		else
+		{
+			for(int coluna = 0; coluna < this->dimensao; coluna++)
+			{
+				if(tabuleiro[linha][coluna] == VAZIO)
+				{
+					tabuleiro[linha][coluna] = RAINHA;
+
+					if(conflito(linha, coluna))
+					{
+						encontrarSolucoes(linha + 1);
+					}
+
+					tabuleiro[linha][coluna] = VAZIO;
+				}
+			}
+		}
+	}
+
+	void print()
+	{
+		for(int linha = 0; linha < this->dimensao; linha++)
+		{
+			string resultado;			
+
+			for(int coluna = 0; coluna < this->dimensao; coluna++)
+			{
+				ostringstream ss;
+				ss << tabuleiro[linha][coluna];
+				resultado += ss.str() + " ";
+			}
+
+			cout << resultado << endl;
+		}
+
+		cout << endl;
+	}
+};
+
+
+int main(int argc, char* argv[])
+{
+	NRainhas jogo(4);
+	jogo.encontrarSolucoes(0);
+	return 0;
+}
+
+
+```
 
 ### CSharp
+```csharp
+using System;
 
-tab content 2
+class NRainhas
+{
+    // Atributos
+    private const int RAINHA = 1;
+    private const int VAZIO = 0;
+    private int dimensao;
+
+    private int[,] tabuleiro;
+
+    // Construtor
+    public NRainhas(int dimensao)
+    {
+        this.dimensao = dimensao;
+        tabuleiro = new int[dimensao, dimensao];
+    }
+
+    // Métodos
+
+    // Retorna true caso haja algum conflito na solução
+    private bool conflito(int linha, int coluna)
+    {
+        for (int i = 0; i < linha; i++)
+        {
+            if (tabuleiro[i, coluna] == RAINHA)
+            {
+                return false;
+            }
+        }
+
+        for (int lin = 0; lin < linha; lin++)
+        {
+            for (int col = 0; col < this.dimensao; col++)
+            {
+                if ((tabuleiro[lin, col] == RAINHA) &&
+                  ((linha - lin) == (coluna - col) ||
+                   (linha - lin) == (col - coluna)))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    // backtracking
+    private void encontrarSolucoes(int linha)
+    {
+        if (linha == this.dimensao)
+        {
+            Console.Write(this);
+        }
+        else
+        {
+            for (int coluna = 0; coluna < this.dimensao; coluna++)
+            {
+                if (tabuleiro[linha, coluna] == VAZIO)
+                {
+                    tabuleiro[linha, coluna] = RAINHA;
+
+                    if (conflito(linha, coluna))
+                    {
+                        encontrarSolucoes(linha + 1);
+                    }
+
+                    tabuleiro[linha, coluna] = VAZIO;
+                }
+            }
+        }
+    }
+
+    public override string ToString()
+    {
+        string resultado = "";
+
+        for (int linha = 0; linha < this.dimensao; linha++)
+        {
+            for (int coluna = 0; coluna < this.dimensao; coluna++)
+            {
+                resultado += " " + tabuleiro[linha, coluna];
+            }
+
+            resultado += "\n";
+        }
+
+        resultado += "\n";
+
+        return resultado;
+    }
+
+
+    public static void Main(string[] args)
+    {
+        NRainhas jogo = new NRainhas(4);
+        jogo.encontrarSolucoes(0);
+    }
+}
+```
 
 ##
 
@@ -1559,6 +2202,7 @@ FEOFILOFF, Paulo. **Recursão e algoritmos recursivos**. 2017. Disponível em: <ht
 ERICKSON, Jeff. **Algorithms**: Backtracking. 2014. Disponível em: <http://jeffe.cs.illinois.edu/teaching/algorithms/notes/03-backtracking.pdf>. Acesso em 8 jul. 2017.
 <br/>
 <br/>
+WIKIPEDIA. **Tree (data structure)**. 2017. Disponível em: <https://en.wikipedia.org/wiki/Tree_(data_structure)>. Acesso em 17 ago. 2017.
 <br/>
 <br/>
 <br/>
