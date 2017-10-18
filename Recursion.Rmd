@@ -50,7 +50,7 @@ O trabalho é mantido em um repositório no ***github***. Caso deseje complementar
 **Se você já conhece os conceitos básicos da programação, então esse material é para você.**
 
 
-Este material contará com códigos em 5 linguagens de programação diferentes:
+Este material contará com códigos em cinco linguagens de programação diferentes:
 
 1. **Python**
 
@@ -532,7 +532,7 @@ def palindromo(str, comeco, fim):
     if comeco == fim:
         return True
     # Segundo caso base
-    else if str[comeco] != str[fim]:
+    elif str[comeco] != str[fim]:
         return False
     else:
     # Passo em direção ao fim do problema
