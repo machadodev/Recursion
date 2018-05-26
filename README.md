@@ -5,4 +5,4 @@ Utilizado para desenvolver o material:
 
 RStudio
 
-Material disponível em: https://lmachado73.github.io/Recursion/
+Material disponível em: https://leomachado73.github.io/Recursion/
